@@ -1,7 +1,11 @@
-number = int(input("Введите трехзначное число: "))
-num1 = number//100
-num2 = (number // 10) % 10
-num3 = number % 10
-sum = num1 + num2 + num3
-mult = num1 * num2 * num3
-print(f"Сумма: {sum}, произведение: {mult}")
+#Дано трехзначное число. Вывести вначале его последнюю цифру (единицы), а затем - его среднюю цифру (десятки).
+try:
+    number = int(input("Введите трехзначное число: "))
+    if not (100 <= number <= 999):
+        print("Ошибка! Число должно быть трехзначным.")
+    else:
+        num1 = number % 10
+        num2 = (number // 10) % 10
+        print(f"Единицы исходного чила - {num1}, десятки - {num2}")
+except Exception:
+    print("Произошла ошибка:")
