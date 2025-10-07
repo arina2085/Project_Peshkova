@@ -8,4 +8,4 @@ try:
         num2 = (number // 10) % 10
         print(f"Единицы исходного чила - {num1}, десятки - {num2}")
 except Exception:
-    print("Произошла ошибка:")
+    print("Произошла ошибка")
