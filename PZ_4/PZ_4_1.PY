@@ -20,7 +20,7 @@ while type(n) != float:
         print("Ошибка! Введите число.")
         n = input("Введите вещественное число: ")
 
-i = 0
+i = 1
 while i <= n:
     i += a**n
     print(i)
