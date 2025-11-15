@@ -10,9 +10,9 @@ while type(a) != float:
         print("Ошибка! Введите число.")
         a = input("Введите вещественное число: ")
 
-while type(n) != float:
+while type(n) != int:
     try:
-        n = float(n)
+        n = int(n)
         if n < 0:
             print("Ошибка! Введите число больше нуля.")
             n = input("Введите целое число: ")
@@ -20,7 +20,9 @@ while type(n) != float:
         print("Ошибка! Введите число.")
         n = input("Введите вещественное число: ")
 
-i = 1
+i = 0
+sum = 0
 while i <= n:
-    i += a**n
-    print(i)
+    sum += a ** i
+    i += 1
+print(sum)
