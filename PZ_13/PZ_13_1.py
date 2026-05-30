@@ -14,5 +14,5 @@ for line in lines:
         domens.add(domen)
 
 print("Найденные домены:")
-for domen in sorted(domens):
+for domen in domens:
     print(domen)

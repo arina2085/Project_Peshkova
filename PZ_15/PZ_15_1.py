@@ -1,48 +1,49 @@
 #Приложение РАСХОДЫ ПО ВИДАМ ПРОДУКЦИИ для автомвтизированного контроля затрат на производство продукции. БД должна содержать таблицу Расходы со следующей структурой записи: Дата, Код продукта, Наименование продукта, Расходы, Сумма.
 
-import sqlite3 as sq
+import sqlite3
 from datetime import datetime
 
-with sq.connect('expenses_products.db') as con:
-    cur = con.cursor()
+con = sqlite3.connect('expenses_products.db')
+cur = con.cursor()
 
-cur.execute("""CREATE TABLE IF NOT EXISTS expenses (
-            kod INT PRIMARY KEY AUTOINCREMENT,
-            date INT NOT NULL,
-            name TEXT NOT NULL,
-            expenses INT NOT NULL,
-            amount INT NOT NULL
-            )""")
-
+cur.execute("""
+    CREATE TABLE IF NOT EXISTS expenses (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        date TEXT NOT NULL,
+        product_code TEXT NOT NULL,
+        product_name TEXT NOT NULL,
+        expense_type TEXT NOT NULL,
+        amount REAL NOT NULL
+    )
+""")
 con.commit()
-
 
 def add_expense():
     """Добавить новую запись о расходах"""
     print("\n--- Добавление расходов ---")
-    дата = input("Введите дату (ГГГГ-ММ-ДД): ") or datetime.now().strftime("%Y-%m-%d")
-    код = input("Код продукта: ")
-    наименование = input("Наименование продукта: ")
-    тип_расходов = input("Тип расходов (материалы, зарплата, аренда и т.д.): ")
+    date = input("Введите дату (ГГГГ-ММ-ДД): ")
+    code = input("Код продукта: ")
+    name = input("Наименование продукта: ")
+    expense_type = input("Тип расходов (материалы, зарплата, аренда и т.д.): ")
     
     try:
-        сумма = float(input("Сумма расходов: "))
+        amount = float(input("Сумма расходов: "))
     except ValueError:
         print("Ошибка: сумма должна быть числом!")
         return
 
     cur.execute('''
-        INSERT INTO Расходы (Дата, Код_продукта, Наименование_продукта, Расходы, Сумма)
+        INSERT INTO expenses (date, product_code, product_name, expense_type, amount)
         VALUES (?, ?, ?, ?, ?)
-    ''', (дата, код, наименование, тип_расходов, сумма))
-    
+    ''', (date, code, name, expense_type, amount))
+
     con.commit()
     print("Запись успешно добавлена!")
 
 def show_all_expenses():
     """Показать все записи"""
     print("\n--- Все расходы ---")
-    cur.execute("SELECT * FROM Расходы ORDER BY Дата")
+    cur.execute("SELECT * FROM expenses ORDER BY date")
     rows = cur.fetchall()
     
     if not rows:
@@ -56,7 +57,7 @@ def show_all_expenses():
 
 def show_total():
     """Показать общую сумму расходов"""
-    cur.execute("SELECT SUM(Сумма) FROM Расходы")
+    cur.execute("SELECT SUM(amount) FROM expenses")
     total = cur.fetchone()[0]
     if total is None:
         total = 0
@@ -65,9 +66,9 @@ def show_total():
 def main_menu():
     """Главное меню приложения"""
     while True:
-        print("\n" + "="*40)
+        print("\n" + "=" * 40)
         print("   ПРИЛОЖЕНИЕ: РАСХОДЫ ПО ВИДАМ ПРОДУКЦИИ")
-        print("="*40)
+        print("=" * 40)
         print("1. Добавить расходы")
         print("2. Показать все расходы")
         print("3. Показать общую сумму")
