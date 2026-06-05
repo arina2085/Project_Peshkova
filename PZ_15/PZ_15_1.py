@@ -1,7 +1,6 @@
 #Приложение РАСХОДЫ ПО ВИДАМ ПРОДУКЦИИ для автомвтизированного контроля затрат на производство продукции. БД должна содержать таблицу Расходы со следующей структурой записи: Дата, Код продукта, Наименование продукта, Расходы, Сумма.
 
 import sqlite3
-from datetime import datetime
 
 con = sqlite3.connect('expenses_products.db')
 cur = con.cursor()
@@ -19,8 +18,7 @@ cur.execute("""
 con.commit()
 
 def add_expense():
-    """Добавить новую запись о расходах"""
-    print("\n--- Добавление расходов ---")
+    print("\nДобавление расходов")
     date = input("Введите дату (ГГГГ-ММ-ДД): ")
     code = input("Код продукта: ")
     name = input("Наименование продукта: ")
@@ -41,8 +39,7 @@ def add_expense():
     print("Запись успешно добавлена!")
 
 def show_all_expenses():
-    """Показать все записи"""
-    print("\n--- Все расходы ---")
+    print("\nВсе расходы")
     cur.execute("SELECT * FROM expenses ORDER BY date")
     rows = cur.fetchall()
     
@@ -56,7 +53,6 @@ def show_all_expenses():
         print(f"{row[1]:<12} {row[2]:<10} {row[3]:<25} {row[4]:<15} {row[5]:>10.2f}")
 
 def show_total():
-    """Показать общую сумму расходов"""
     cur.execute("SELECT SUM(amount) FROM expenses")
     total = cur.fetchone()[0]
     if total is None:
@@ -64,11 +60,8 @@ def show_total():
     print(f"\nОбщая сумма расходов: {total:.2f} руб.")
 
 def main_menu():
-    """Главное меню приложения"""
     while True:
-        print("\n" + "=" * 40)
         print("   ПРИЛОЖЕНИЕ: РАСХОДЫ ПО ВИДАМ ПРОДУКЦИИ")
-        print("=" * 40)
         print("1. Добавить расходы")
         print("2. Показать все расходы")
         print("3. Показать общую сумму")

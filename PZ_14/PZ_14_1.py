@@ -9,20 +9,17 @@ root.geometry("600x700")
 
 root.configure(bg="#f5f5f5")
 
-main_frame = tk.Frame(root, bg="#f5f5f5")
+main_frame = tk.Frame(root, bg="#f5f5f5", bd=1, relief="solid")
 main_frame.pack(padx=20, pady=10, fill="both", expand=True)
 
 header = tk.Label(main_frame, text="Создайте заказ", bg="#006680", fg="white", font=("Arial", 14, "bold"), pady=10)
 header.pack(fill="x")
 
-sep = tk.Frame(main_frame, height=1, bg="#cccccc")
-sep.pack(fill="x", pady=(0, 15))
-
 def create_section(title, num):
-    frame = tk.Frame(main_frame, bg="#f5f5f5", bd=1, relief="solid", padx=15, pady=10)
+    frame = tk.Frame(main_frame, bg="#f5f5f5", padx=15, pady=10)
     frame.pack(fill="x", pady=5)
 
-    num_label = tk.Label(frame, text=str(num), bg="#006680", fg="white", font=("Arial", 12, "bold"), width=2, height=2, relief="raised", bd=1)
+    num_label = tk.Label(frame, text=str(num), bg="#006680", fg="white", font=("Arial", 12, "bold"), width=2, height=2, bd=1)
     num_label.grid(row=0, column=0, sticky="nw", padx=(0, 10))
 
     title_label = tk.Label(frame, text=title, bg="#f5f5f5", fg="#006680", font=("Arial", 12, "bold"))
