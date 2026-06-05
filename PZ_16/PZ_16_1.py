@@ -6,14 +6,14 @@ class Book:
         self.author = author
         self.pages = pages
 
-    def read(self):
-        print(f"Читаем книгу '{self.title}' автора {self.author}.")
-        print(f"В книге {self.pages} страниц.")
+    def get_info(self):
+        return f"Название: {self.title}, Автор: {self.author}, Страниц: {self.pages}"
 
-    def write(self, text):
-        print(f"Записываем в книгу '{self.title}': {text}")
 
-book = Book("Война и мир", "Лев Толстой", 1225)
+print("Создание книги")
+title = input("Введите название книги: ")
+author = input("Введите автора: ")
+pages = int(input("Введите количество страниц: "))
 
-book.read()
-book.write("Новая глава о судьбе героев")
+book = Book(title, author, pages)
+print(book.get_info())
